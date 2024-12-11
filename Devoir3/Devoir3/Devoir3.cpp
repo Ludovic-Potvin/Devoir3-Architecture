@@ -6,6 +6,7 @@ using namespace std;
 int main() {
     Noeud* racine = nullptr; // Initialisation de la racine à nullptr
     ABR arbre(racine);
+    string utilisateur;
     char commande;
     int valeur;
 
@@ -19,9 +20,10 @@ int main() {
         cout << "(G)" << endl;
         cout << "(T) Archiver" << endl;
         cout << "(Q)uitter le programme" << endl;
-        commande = getchar();
+        cin >> utilisateur;
 
-        commande = toupper(commande);
+        commande = utilisateur[0];
+        commande = toupper(commande);        
 
         switch (commande) {
         case 'I': // Insérer une valeur

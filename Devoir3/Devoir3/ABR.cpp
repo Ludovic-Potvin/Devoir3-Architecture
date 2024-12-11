@@ -1,5 +1,6 @@
 #include "ABR.h"
 #include <iostream>
+#include <vector>
 using namespace std;
 
 // Constructeur
@@ -16,7 +17,7 @@ ABR::~ABR() {
 }
 
 // Fonction pour insérer une valeur
-void ABR::Inserer(Noeud* racine, int d) {
+void ABR::Inserer(Noeud*& racine, int d) {
     if (racine == nullptr) {
         racine = new Noeud{d, nullptr, nullptr};
     } else if (d < racine->valeur) {
@@ -35,9 +36,8 @@ void ABR::Inserer(Noeud* racine, int d) {
 }
 
 // Fonction pour supprimer une valeur
-void ABR::Supprimer(Noeud* racine, int d) {
+void ABR::Supprimer(Noeud*& racine, int d) {
     if (racine == nullptr) return;
-
     if (d < racine->valeur) {
         Supprimer(racine->gauche, d);
     } else if (d > racine->valeur) {
@@ -70,16 +70,41 @@ void ABR::Supprimer(Noeud* racine, int d) {
     }
 }
 
-// Fonction pour afficher l'arbre en parcours infixe
-void ABR::Afficher_Arbre(Noeud* racine) {
+void ABR::Afficher_Arbre(Noeud*& racine)
+{
     if (racine == nullptr) return;
-    Afficher_Arbre(racine->gauche);
-    cout << racine->valeur << " ";
-    Afficher_Arbre(racine->droite);
+    int hauteur = Afficher_hauteur(racine);
+    int taille = pow(2, hauteur) - 1;
+    vector<int> tableau(taille, -1);
+    int current = 1;
+
+    Afficher_Arbre_R(racine, &tableau, current);
+
+    int etage = (taille + 1)/2;
+    int compteur = 0;
+    for (int i = taille - 1; i >= 0; i--)
+    {
+        cout << tableau[i] << " ";
+        compteur++;
+        if (compteur == etage)
+        {
+            cout << endl;
+            compteur = 0;
+            etage = etage / 2;
+        }
+    }
+}
+
+// Fonction pour afficher l'arbre
+void ABR::Afficher_Arbre_R(Noeud*& racine, vector<int>* tableau, int current) {
+    if (racine == nullptr) return;
+    (*tableau)[current - 1] = racine->valeur;
+    Afficher_Arbre_R(racine->gauche, tableau, current*2);
+    Afficher_Arbre_R(racine->droite, tableau, current*2 + 1);
 }
 
 // Fonction pour afficher la hauteur de l'arbre
-int ABR::Afficher_hauteur(Noeud* racine) {
+int ABR::Afficher_hauteur(Noeud*& racine) {
     if (racine == nullptr) return 0;
     int hauteurGauche = Afficher_hauteur(racine->gauche);
     int hauteurDroite = Afficher_hauteur(racine->droite);
@@ -87,13 +112,13 @@ int ABR::Afficher_hauteur(Noeud* racine) {
 }
 
 // Fonction pour afficher le déséquilibre de l'arbre
-int ABR::Desequilibre(Noeud* racine) {
+int ABR::Desequilibre(Noeud*& racine) {
     if (racine == nullptr) return 0;
     return Afficher_hauteur(racine->gauche) - Afficher_hauteur(racine->droite);
 }
 
 // Fonction pour afficher les ascendants d'une valeur
-void ABR::Afficher_Ascendant(Noeud* racine, int d) {
+void ABR::Afficher_Ascendant(Noeud*& racine, int d) {
     if (racine == nullptr) return;
     if (racine->valeur == d) {
         cout << racine->valeur << " ";
@@ -108,8 +133,8 @@ void ABR::Afficher_Ascendant(Noeud* racine, int d) {
 }
 
 // Fonction pour archiver (sauvegarder) l'arbre
-void ABR::Archiver(Noeud* racine) {
-    if (racine == nullptr) return;
+void ABR::Archiver(Noeud*& racine) {
+    if (racine == nullptr)return;
     // Par exemple, écrire dans un fichier (ici, sortie console comme exemple)
     Archiver(racine->gauche);
     cout << racine->valeur << "\n";
