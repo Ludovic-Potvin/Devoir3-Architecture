@@ -11,7 +11,7 @@ int main() {
 
     while (true) {
         cout << "Choisissez parmis les options suivantes : " << endl;
-        cout << "(I)nsérer" << endl;
+        cout << "(I)nserer" << endl;
         cout << "(S)upprimer" << endl;
         cout << "(A)fficher" << endl;
         cout << "Voir la (H)auteur" << endl;
