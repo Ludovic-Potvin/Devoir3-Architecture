@@ -1,4 +1,5 @@
 #include "ABR.h"
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -9,8 +10,18 @@ int main() {
     int valeur;
 
     while (true) {
-        cout << "Entrez une commande : ";
-        cin >> commande;
+        cout << "Choisissez parmis les options suivantes : " << endl;
+        cout << "(I)nsérer" << endl;
+        cout << "(S)upprimer" << endl;
+        cout << "(A)fficher" << endl;
+        cout << "Voir la (H)auteur" << endl;
+        cout << "(D)" << endl;
+        cout << "(G)" << endl;
+        cout << "(T) Archiver" << endl;
+        cout << "(Q)uitter le programme" << endl;
+        commande = getchar();
+
+        commande = toupper(commande);
 
         switch (commande) {
         case 'I': // Insérer une valeur
