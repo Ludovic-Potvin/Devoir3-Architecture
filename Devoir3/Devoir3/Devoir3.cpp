@@ -52,7 +52,7 @@ int main() {
             cout << endl;
             break;
         case 'T': // Sauvegarder l'arbre (affiché ici comme exemple)
-            cout << "Arbre sauvegardé :\n";
+            cout << "Arbre sauvegarde !\n";
             arbre.Archiver(racine);
             break;
         case 'Q': // Quitter le programme

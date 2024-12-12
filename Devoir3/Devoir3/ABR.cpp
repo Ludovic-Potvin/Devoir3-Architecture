@@ -1,6 +1,7 @@
 #include "ABR.h"
 #include <iostream>
 #include <vector>
+#include <fstream> 
 using namespace std;
 
 // Constructeur
@@ -135,8 +136,30 @@ void ABR::Afficher_Ascendant(Noeud*& racine, int d) {
 // Fonction pour archiver (sauvegarder) l'arbre
 void ABR::Archiver(Noeud*& racine) {
     if (racine == nullptr)return;
-    // Par exemple, écrire dans un fichier (ici, sortie console comme exemple)
-    Archiver(racine->gauche);
-    cout << racine->valeur << "\n";
-    Archiver(racine->droite);
+    int hauteur = Afficher_hauteur(racine);
+    int taille = pow(2, hauteur) - 1;
+    vector<int> tableau(taille, -1);
+    int current = 1;
+    string nomFichier = "archive.txt";
+    ofstream fichier;
+
+    fichier.open(nomFichier, std::ios::out);
+
+    Afficher_Arbre_R(racine, &tableau, current);
+
+    int etage = 1;
+    int compteur = 0;
+    for (int i = 0; i < taille; i++)
+    {
+        fichier << tableau[i] << " ";
+        compteur++;
+        if (compteur == etage)
+        {
+            fichier << endl;
+            compteur = 0;
+            etage = etage * 2;
+        }
+    }
+
+    fichier.close();
 }
