@@ -16,7 +16,7 @@ int main() {
         cout << "(S)upprimer" << endl;
         cout << "(A)fficher" << endl;
         cout << "Voir la (H)auteur" << endl;
-        cout << "(D)" << endl;
+        cout << "Voir le (D)esequilibre" << endl;
         cout << "(G)" << endl;
         cout << "(T) Archiver" << endl;
         cout << "(Q)uitter le programme" << endl;
@@ -30,11 +30,13 @@ int main() {
             cout << "Entrez une valeur : ";
             cin >> valeur;
             arbre.Inserer(racine, valeur); // Passer la racine de l'arbre
+            cout << "La valeur " << valeur << " a ete inseree" << endl;
             break;
         case 'S': // Supprimer une valeur
             cout << "Entrez une valeur : ";
             cin >> valeur;
             arbre.Supprimer(racine, valeur); // Passer la racine de l'arbre
+            cout << "La valeur " << valeur << " a ete supprimee" << endl;
             break;
         case 'A': // Afficher l'arbre niveau par niveau
             arbre.Afficher_Arbre(racine); // Passer la racine de l'arbre
@@ -44,15 +46,16 @@ int main() {
             cout << "Hauteur : " << arbre.Afficher_hauteur(racine) << endl;
             break;
         case 'D': // Afficher le déséquilibre de l'arbre
-            cout << "Déséquilibre : " << arbre.Desequilibre(racine) << endl;
+            cout << "Desequilibre : " << arbre.Desequilibre(racine) << endl;
             break;
         case 'G': // Afficher les ascendants d'une valeur
+            cout << "Entrez une valeur pour voir les noeuds ascendant : ";
             cin >> valeur;
             arbre.Afficher_Ascendant(racine, valeur); // Passer la racine de l'arbre
             cout << endl;
             break;
         case 'T': // Sauvegarder l'arbre (affiché ici comme exemple)
-            cout << "Arbre sauvegarde !\n";
+            cout << "Arbre sauvegarde !" << endl;
             arbre.Archiver(racine);
             break;
         case 'Q': // Quitter le programme
